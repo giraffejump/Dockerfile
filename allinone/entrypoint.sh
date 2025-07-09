@@ -19,10 +19,10 @@ function prepare_core() {
     export SECRET_KEY BOOTSTRAP_TOKEN CORE_HOST LOG_LEVEL
     export PATH=/opt/py3/bin/:$PATH
     
-    if [[ -f /opt/jumpserver/config.yml ]];then
-        echo > /opt/jumpserver/config.yml
+    if [[ -f /opt/giraffejump/config.yml ]];then
+        echo > /opt/giraffejump/config.yml
     fi
-    rm -f /opt/jumpserver/tmp/*.pid
+    rm -f /opt/giraffejump/tmp/*.pid
 }
 
 
@@ -43,7 +43,7 @@ function mv_dir_link(){
 }
 
 function prepare_data_persist() {
-    for app in jumpserver koko lion chen;do
+    for app in giraffejump koko lion chen;do
         mv_dir_link /opt/$app/data /opt/data/${app}
     done
     
@@ -53,7 +53,7 @@ function prepare_data_persist() {
 
 function upgrade_db() {
     echo ">> Update database structure"
-    cd /opt/jumpserver || exit 1
+    cd /opt/giraffejump || exit 1
     ./jms upgrade_db || {
         echo -e "\033[31m Failed to change the table structure. \033[0m"
         exit 1
@@ -90,6 +90,6 @@ fi
 
 echo
 echo "LOG_LEVEL: ${LOG_LEVEL}"
-echo "JumpServer Logs:"
+echo "GiraffeJump Logs:"
 
 /etc/init.d/supervisor start
