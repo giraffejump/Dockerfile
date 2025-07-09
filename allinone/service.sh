@@ -3,7 +3,7 @@
 
 function init_pg() {
     echo ">> Init database"
-    DB_NAME=${DB_NAME:-jumpserver}
+    DB_NAME=${DB_NAME:-giraffejump}
     DB_PASSWORD=${DB_PASSWORD:-PleaseChangeMe}
     DB_ENGINE=${DB_ENGINE:-postgresql}
     DB_HOST=${DB_HOST:-127.0.0.1}
