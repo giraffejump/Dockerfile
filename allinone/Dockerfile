@@ -1,10 +1,10 @@
 ARG version=dev-ce
-FROM jumpserver/koko:${version} AS koko
-FROM jumpserver/lion:${version} AS lion
-FROM jumpserver/chen:${version} AS chen
-FROM jumpserver/web:${version} AS web
+FROM giraffejump/koko:${version} AS koko
+FROM giraffejump/lion:${version} AS lion
+FROM giraffejump/chen:${version} AS chen
+FROM giraffejump/web:${version} AS web
 
-FROM jumpserver/core:${version} AS core
+FROM giraffejump/core:${version} AS core
 
 ARG TOOLS="                           \
         bash-completion               \
