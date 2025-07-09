@@ -1,7 +1,7 @@
 services:
   core:
-    image: jumpserver/jms_core:${VERSION}
-    container_name: jms_core
+    image: giraffejump/giraffe_core:${VERSION}
+    container_name: giraffe_core
     command: start web
     deploy:
       mode: replicated
@@ -23,13 +23,13 @@ services:
       retries: 3
       start_period: 90s
     volumes:
-      - ${VOLUME_DIR}/core/data:/opt/jumpserver/data
+      - ${VOLUME_DIR}/core/data:/opt/giraffe/data
     networks:
       - net
 
   celery:
-    image: jumpserver/jms_core:${VERSION}
-    container_name: jms_celery
+    image: giraffejump/giraffe_core:${VERSION}
+    container_name: giraffe_celery
     command: start task
     deploy:
       mode: replicated
@@ -45,19 +45,19 @@ services:
           - "node.role==worker"
     env_file: .env
     healthcheck:
-      test: "bash /opt/jumpserver/utils/check_celery.sh"
+      test: "bash /opt/giraffejump/utils/check_celery.sh"
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 30s
     volumes:
-      - ${VOLUME_DIR}/core/data:/opt/jumpserver/data
+      - ${VOLUME_DIR}/core/data:/opt/giraffejump/data
     networks:
       - net
 
   koko:
-    image: jumpserver/jms_koko:${VERSION}
-    container_name: jms_koko
+    image: giraffejump/giraffe_koko:${VERSION}
+    container_name: giraffe_koko
     privileged: true
     deploy:
       mode: replicated
@@ -86,8 +86,8 @@ services:
       - net
 
   guacd:
-    image: jumpserver/guacd:1.5.5-bookworm
-    container_name: jms_guacd
+    image: giraffejump/guacd:1.5.5-bookworm
+    container_name: giraffe_guacd
     user: root
     deploy:
       mode: replicated
@@ -108,8 +108,8 @@ services:
       - net
 
   lion:
-    image: jumpserver/jms_lion:${VERSION}
-    container_name: jms_lion
+    image: giraffejump/giraffe_lion:${VERSION}
+    container_name: giraffe_lion
     deploy:
       mode: replicated
       replicas: 1
@@ -135,8 +135,8 @@ services:
       - net
 
   chen:
-    image: jumpserver/jms_chen:${VERSION}
-    container_name: jms_chen
+    image: giraffejump/giraffe_chen:${VERSION}
+    container_name: giraffe_chen
     deploy:
       mode: replicated
       replicas: 1
@@ -162,8 +162,8 @@ services:
       - net
 
   web:
-    image: jumpserver/jms_web:${VERSION}
-    container_name: jms_web
+    image: giraffejump/giraffe_web:${VERSION}
+    container_name: giraffe_web
     deploy:
       mode: replicated
       replicas: 1
@@ -184,7 +184,7 @@ services:
       retries: 3
       start_period: 10s
     volumes:
-      - ${VOLUME_DIR}/core/data:/opt/jumpserver/data
+      - ${VOLUME_DIR}/core/data:/opt/giraffejump/data
       - ${VOLUME_DIR}/web/data/logs:/var/log/nginx
       - ${VOLUME_DIR}/web/download:/opt/download
     ports:
